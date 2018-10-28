@@ -1,10 +1,15 @@
 var createError = require('http-errors');
 var express = require('express');
-var methodOverride = require('method-override');
 var path = require('path');
+var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var methodOverride = require('method-override');
+
+require('./config/database');
 
 var homeRouter = require('./routes/home');
+var barsRouter = require('./routes/bars');
+var beersRouter = require('./routes/beers');
 
 var app = express();
 
@@ -15,10 +20,13 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(methodOverride('_method'));
 
 app.use('/', homeRouter);
+app.use('/bars', barsRouter);
+app.use('/beers', beersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,3 +47,5 @@ app.use(function(err, req, res, next) {
 app.listen(3000, function() {
   console.log('The sweet sounds of port 3000...');
 });
+
+module.exports = app;
