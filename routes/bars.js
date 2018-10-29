@@ -13,7 +13,7 @@ router.post('/', bars.create);
 // POST new beer to a bar
 router.post('/:id/beers', bars.addBeer);
 // Remove beer from bar (and vice versa)
-router.get('/:id/beers/:cid/unenroll', bars.removeBeer);
+router.get('/:id/beers/:cid/remove', bars.removeBeer);
 // DELETE bar
 router.delete('/:id', bars.destroy);
 
