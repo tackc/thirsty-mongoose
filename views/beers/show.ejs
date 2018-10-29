@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+<h1><%= beer.name %></h1>
+<form method="POST" action="/beers/<%= beer._id %>?_method=DELETE">
+    <button class="delete" type="submit">Delete</button>
+</form>
+<hr />
+<h3>Bars:</h3>
+<% beer.bars.forEach(function(bar) { %>
+    <p><%= bar.name %> - <a href="/beers/<%= beer._id %>/beers/<%= bar._id %>/unenroll">Unenroll</a></p>
+<% }); %>
+
+<main>
+    <h3>Add a Bar for this Beer</h3>
+    <form method="POST" action="/beers/<%= beer._id %>/bars">
+        <select name="bar">
+            <% bars.forEach(function(bar) { %>
+                <option value="<%= bar._id %>"><%= bar.name %></option>
+            <% }); %>
+        </select>
+        <br>
+        <br>
+        <input type="submit" value="Add Bar">
+    </form>
+</main>
+
+<%- include('../partials/footer') %>
