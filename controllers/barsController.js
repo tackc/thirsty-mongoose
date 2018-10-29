@@ -24,12 +24,12 @@ module.exports = {
         });
     },
 
-    deleteBar: function (req, res, next) {
-        Bar.findById(req.params.id, (err, bar) => {
-            bar.remove();
-            res.redirect('/bars');
-        });
-    },
+    // deleteBar: function (req, res, next) {
+    //     Bar.findById(req.params.id, (err, bar) => {
+    //         bar.remove();
+    //         res.redirect('/bars');
+    //     });
+    // },
     
     show: function(req, res, next) {
         Bar.findById(req.params.id).populate('beers').exec(function(err, bar) {

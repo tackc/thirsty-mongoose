@@ -1,18 +1,22 @@
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
-
+var commentSchema = new Schema({
+    content: String
+}, {
+    timestamps: true
+});
 //model goes below
 var beerSchema = new Schema({
     name: String,
     style: String,
-    bar: [{ type: Schema.Types.ObjectId, ref: 'Bar'}],
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
+    bars: [{ type: Schema.Types.ObjectId, ref: 'Bar' }],
+    comments: [commentSchema]
 }, {
     timestamps: true
 });
 
-barSchema.post('remove', function(doc) {
+beerSchema.post('remove', function(doc) {
     this.model('Beer').find(
         {bars: doc._id},
         function(err, beers) {

@@ -1,5 +1,5 @@
 const Beer = require('../models/Beer');
-// const Bar = require('../models/Bar');
+const Bar = require('../models/Bar');
 const Comment = require('../models/Comment');
 
 module.exports = {
@@ -28,12 +28,12 @@ module.exports = {
         });
     },
     
-    deleteBeer: function(req, res, next) {
-        Beer.findById(req.params.id, (err, beer) => {
-            beer.remove();
-            res.redirect('/beers');
-        });
-    },
+    // deleteBeer: function(req, res, next) {
+    //     Beer.findById(req.params.id, (err, beer) => {
+    //         beer.remove();
+    //         res.redirect('/beers');
+    //     });
+    // },
 
     show: function(req, res, next) {
         Beer.findById(req.params.id).populate('bars').exec(function(err, beer) {
