@@ -1,6 +1,5 @@
 const Beer = require('../models/Beer');
 const Bar = require('../models/Bar');
-const Comment = require('../models/Comment');
 
 module.exports = {
 
@@ -24,6 +23,13 @@ module.exports = {
             res.redirect('/bars');
         });
     },
+
+    deleteBar: function (req, res, next) {
+        Bar.findById(req.params.id, (err, bar) => {
+            bar.remove();
+            res.redirect('/bars');
+        });
+    },
     
     show: function(req, res, next) {
         Bar.findById(req.params.id).populate('beers').exec(function(err, bar) {
@@ -34,7 +40,7 @@ module.exports = {
         });
     },
     
-    addBeer: function(req, res, next) {
+    createServe: function(req, res, next) {
         Bar.findById(req.params.id, function(err, bar) {
             if (err) return next(err);
             Beer.findById(req.body.beer, function(err, beer) {
@@ -52,7 +58,7 @@ module.exports = {
         })
     },
 
-    removeBeer: function(req, res, next) {
+    deleteServe: function(req, res, next) {
         Bar.findById(req.params.id, function(err, bar) {
             if (err) return next(err);
             bar.beers.remove(req.params.cid);
@@ -70,11 +76,11 @@ module.exports = {
         })
     },
 
-    destroy: function(req, res, next) {
-        Bar.remove({_id: req.params.id}, function(err) {
-            if (err) return next(err);
-            res.redirect('/bars');
-        })
-    }
+    // destroy: function(req, res, next) {
+    //     Bar.remove({_id: req.params.id}, function(err) {
+    //         if (err) return next(err);
+    //         res.redirect('/bars');
+    //     })
+    // }
 
 }
